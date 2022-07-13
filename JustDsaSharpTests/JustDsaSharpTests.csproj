@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>just_dsa_csharp_tests</RootNamespace>
+    <RootNamespace>JustDsaSharpTests</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../just-dsa-csharp/just-dsa-csharp.csproj" />
+    <ProjectReference Include="../JustDsaSharp/JustDsaSharp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

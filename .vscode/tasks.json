@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/just-dsa-csharp/just-dsa-csharp.csproj",
+                "${workspaceFolder}/JustDsaSharp/JustDsaSharp.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -19,7 +19,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/just-dsa-csharp/just-dsa-csharp.csproj",
+                "${workspaceFolder}/JustDsaSharp/JustDsaSharp.csproj",
                 "/property:GenerateFullPaths=true",
                 "/consoleloggerparameters:NoSummary"
             ],
@@ -33,7 +33,7 @@
                 "watch",
                 "run",
                 "--project",
-                "${workspaceFolder}/just-dsa-csharp/just-dsa-csharp.csproj"
+                "${workspaceFolder}/JustDsaSharp/JustDsaSharp.csproj"
             ],
             "problemMatcher": "$msCompile"
         }
