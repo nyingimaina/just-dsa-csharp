@@ -83,15 +83,23 @@ namespace JustDsaSharpTests.DataStructures.LinkedLists
                 .Prepend(3)
                 .Prepend(4);
 
-            var node2 = singlyLinkedList.Head.Next!.Next!;
-            var node3 = singlyLinkedList.Head.Next!;
-            var node2Parent = node3;
+            Func<JustDsaSharp.DataStructures.LinkedLists.LinkedListNode<int>> headChild = () => singlyLinkedList.Head.Next!;
+            Func<JustDsaSharp.DataStructures.LinkedLists.LinkedListNode<int>> headGrandChild = () => singlyLinkedList.Head.Next!.Next!;
+            var node2 = headGrandChild();
+            var node3 = headChild();
+
+            var node2Parent = headChild();
             var node3Parent = singlyLinkedList.Head;
+
+            Assert.Equal(3,headChild().Value);
+            Assert.Equal(2, headGrandChild().Value);
+            Assert.Equal(headGrandChild(), headChild().Next);
 
             singlyLinkedList.SwapNodes(node2, node3, node2Parent, node3Parent);
 
-            Assert.Equal(2,singlyLinkedList.Head.Next!.Value);
-            Assert.Equal(4, singlyLinkedList.Head.Next!.Next!.Next!.Value);
+            Assert.Equal(2,headChild().Value);
+            Assert.Equal(3, headGrandChild().Value);
+            Assert.Equal(headGrandChild(), headChild().Next);
         }
     }
 }

@@ -41,7 +41,40 @@ namespace JustDsaSharp.DataStructures.LinkedLists
             return this;
         }
 
+        /// <summary>
+        /// Swaps the position of two nodes.
+        /// </summary>
+        /// <param name="nodeOne">First node.</param>
+        /// <param name="nodeTwo">Second node.</param>
+        /// <param name="nodeOneParent">The parent of the first node.</param>
+        /// <param name="nodeTwoParent">The parent of the second node.</param>
+        /// <returns>Handle to self</returns>
         public SinglyLinkedList<TValue> SwapNodes(
+            LinkedListNode<TValue> nodeOne, 
+            LinkedListNode<TValue> nodeTwo, 
+            LinkedListNode<TValue> nodeOneParent,
+            LinkedListNode<TValue> nodeTwoParent)
+        {
+            var nodesAreAdjacent = nodeOne.Next == nodeTwo || nodeTwo.Next == nodeOne;
+            Action<LinkedListNode<TValue>, LinkedListNode<TValue>, LinkedListNode<TValue>, LinkedListNode<TValue>> swap;
+            if(nodesAreAdjacent)
+            {
+                swap = SwapAdjacentNodes;
+            }
+            else
+            {
+                swap = SwapNonAdjacentNodes;
+            }
+            swap(
+                nodeOne,
+                nodeTwo,
+                nodeOneParent,
+                nodeTwoParent
+            );
+            return this;
+        }
+
+        private void SwapNonAdjacentNodes(
             LinkedListNode<TValue> nodeOne, 
             LinkedListNode<TValue> nodeTwo, 
             LinkedListNode<TValue> nodeOneParent,
@@ -58,7 +91,24 @@ namespace JustDsaSharp.DataStructures.LinkedLists
 
             attach(nodeTwoParent, nodeOne, nodeTwoGrandChild);
             attach(nodeOneParent, nodeTwo, nodeOneGrandChild);
-            return this;
+        }
+
+        private void SwapAdjacentNodes(
+            LinkedListNode<TValue> nodeOne, 
+            LinkedListNode<TValue> nodeTwo, 
+            LinkedListNode<TValue> nodeOneParent,
+            LinkedListNode<TValue> nodeTwoParent)
+        {
+            if(nodeOne.Next == nodeTwo)
+            {
+                nodeOneParent.Next = nodeTwo;
+                nodeOne.Next = nodeTwo.Next;
+                nodeTwo.Next = nodeOne;
+            }
+            else
+            {
+                SwapAdjacentNodes(nodeTwo, nodeOne, nodeTwoParent, nodeOneParent);
+            }
         }
 
 
