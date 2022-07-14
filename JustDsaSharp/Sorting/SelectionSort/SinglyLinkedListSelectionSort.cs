@@ -33,6 +33,7 @@ namespace JustDsaSharp.Sorting.SelectionSort
                 DataStructures.LinkedLists.LinkedListNode<TValue> nodeToSwapParent = unSortedStart;
                 DataStructures.LinkedLists.LinkedListNode<TValue> previousNode = unSortedStart;
                 var currentNode = unSortedStart.Next;
+                var swappingRequired = false;
                 while (currentNode != null)
                 {
                     if (currentNode.Value == null || unSortedStart.Value == null || nodeToSwap.Value == null)
@@ -41,6 +42,7 @@ namespace JustDsaSharp.Sorting.SelectionSort
                     }
                     if (areSorted(unSortedStart.Value, currentNode.Value) == false)
                     {
+                        swappingRequired = true;
                         if (areSorted(nodeToSwap.Value, currentNode.Value) == false)
                         {
                             nodeToSwap = currentNode;
@@ -50,26 +52,33 @@ namespace JustDsaSharp.Sorting.SelectionSort
                     previousNode = currentNode;
                     currentNode = currentNode.Next;
                 }
-                if (isAtHead == false)
+                if(!swappingRequired)
                 {
-                    nodeToSwap.Next = unSortedStartParent.Next;
-                    unSortedStartParent.Next = nodeToSwap;
+                    return singlyLinkedList;
                 }
                 else
                 {
-                    singlyLinkedList.Head = nodeToSwap;
-                }
-                var nodeToSwapNext = nodeToSwap.Next;
-                nodeToSwap.Next = unSortedStart.Next;
-                nodeToSwapParent.Next = unSortedStart;
-                unSortedStart.Next = nodeToSwapNext;
+                    if (isAtHead == false)
+                    {
+                        singlyLinkedList.SwapNodes(nodeToSwap, unSortedStart, nodeToSwapParent, unSortedStartParent);
+                    }
+                    else
+                    {
+                        singlyLinkedList.Head = nodeToSwap;
+                        var nodeToSwapNext = nodeToSwap.Next;
+                        nodeToSwap.Next = unSortedStart.Next;
+                        nodeToSwapParent.Next = unSortedStart;
+                        unSortedStart.Next = nodeToSwapNext;
+                    }
 
-                return DoSorting(
-                    singlyLinkedList,
-                    areSorted,
-                    nodeToSwap,
-                    false
-                );
+
+                    return DoSorting(
+                        singlyLinkedList,
+                        areSorted,
+                        nodeToSwap,
+                        false
+                    );
+                }
             }
             return singlyLinkedList;
         }
