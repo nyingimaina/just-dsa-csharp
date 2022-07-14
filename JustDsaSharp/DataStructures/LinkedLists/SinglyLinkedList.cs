@@ -7,9 +7,9 @@ namespace JustDsaSharp.DataStructures.LinkedLists
     public class SinglyLinkedList<TValue>
     {
         /// <summary>
-        /// Gets the first node in the linked list;
+        /// Gets or sets the first node in the linked list;
         /// </summary>
-        public LinkedListNode<TValue> Head { get; private set; }
+        public LinkedListNode<TValue> Head { get; set; }
 
         /// <summary>
         /// Initialize an instance of the singly linked list, allowing you to create the first node node.
