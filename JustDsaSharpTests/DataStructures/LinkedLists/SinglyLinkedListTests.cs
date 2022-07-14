@@ -54,5 +54,44 @@ namespace JustDsaSharpTests.DataStructures.LinkedLists
                 Assert.True (currentNode.IsTail);
             }
         }
+
+        [Fact]
+        public void NodeSwappingNonAdjacentNodesWorks()
+        {
+            var singlyLinkedList = new SinglyLinkedList<int>(1)
+                .Prepend(2)
+                .Prepend(3)
+                .Prepend(4)
+                .Prepend(5);
+
+            var node2 = singlyLinkedList.Head.Next!.Next!.Next!;
+            var node4 = singlyLinkedList.Head.Next!;
+            var node2Parent = singlyLinkedList.Head.Next!.Next!;
+            var node4Parent = singlyLinkedList.Head;
+
+            singlyLinkedList.SwapNodes(node2, node4, node2Parent, node4Parent);
+
+            Assert.Equal(2,singlyLinkedList.Head.Next!.Value);
+            Assert.Equal(4, singlyLinkedList.Head.Next!.Next!.Next!.Value);
+        }
+
+        [Fact]
+        public void NodeSwappingAdjacentNodesWorks()
+        {
+            var singlyLinkedList = new SinglyLinkedList<int>(1)
+                .Prepend(2)
+                .Prepend(3)
+                .Prepend(4);
+
+            var node2 = singlyLinkedList.Head.Next!.Next!;
+            var node3 = singlyLinkedList.Head.Next!;
+            var node2Parent = node3;
+            var node3Parent = singlyLinkedList.Head;
+
+            singlyLinkedList.SwapNodes(node2, node3, node2Parent, node3Parent);
+
+            Assert.Equal(2,singlyLinkedList.Head.Next!.Value);
+            Assert.Equal(4, singlyLinkedList.Head.Next!.Next!.Next!.Value);
+        }
     }
 }

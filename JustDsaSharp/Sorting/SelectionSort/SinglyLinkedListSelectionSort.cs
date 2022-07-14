@@ -13,7 +13,7 @@ namespace JustDsaSharp.Sorting.SelectionSort
             }
             else
             {
-                var result = DoSorting(singlyLinkedList,areSorted,singlyLinkedList.Head);
+                var result = DoSorting(singlyLinkedList,areSorted,singlyLinkedList.Head, true);
                 var typedResult = (TInput)(object)result;
                 return typedResult;
             }
@@ -22,39 +22,55 @@ namespace JustDsaSharp.Sorting.SelectionSort
         private SinglyLinkedList<TValue> DoSorting<TValue>(
             SinglyLinkedList<TValue> singlyLinkedList, 
             Func<TValue,TValue,bool> areSorted,
-            DataStructures.LinkedLists.LinkedListNode<TValue> unSortedStartParent)
+            DataStructures.LinkedLists.LinkedListNode<TValue> unSortedStartParent,
+            bool isAtHead)
         {
-            var unSortedStart = unSortedStartParent.Next;
-            if(unSortedStart != null)
+            var unSortedStart = isAtHead ? unSortedStartParent : unSortedStartParent.Next;
+
+            if (unSortedStart != null && unSortedStart.Next != null)
             {
+                DataStructures.LinkedLists.LinkedListNode<TValue> nodeToSwap = unSortedStart;
+                DataStructures.LinkedLists.LinkedListNode<TValue> nodeToSwapParent = unSortedStart;
+                DataStructures.LinkedLists.LinkedListNode<TValue> previousNode = unSortedStart;
                 var currentNode = unSortedStart.Next;
-                if (currentNode != null && currentNode.Next != null)
+                while (currentNode != null)
                 {
-                    if (currentNode.Value == null || unSortedStart.Value == null)
+                    if (currentNode.Value == null || unSortedStart.Value == null || nodeToSwap.Value == null)
                     {
                         throw new Exception("Sorting null values is currently not supported");
                     }
-                    if(areSorted(unSortedStart.Value,currentNode.Value) == false)
+                    if (areSorted(unSortedStart.Value, currentNode.Value) == false)
                     {
-                        var temp = unSortedStart;
-                        if(unSortedStartParent != null)
+                        if (areSorted(nodeToSwap.Value, currentNode.Value) == false)
                         {
-                            unSortedStartParent.Next = currentNode;
+                            nodeToSwap = currentNode;
+                            nodeToSwapParent = previousNode;
                         }
-                        else
-                        {
-                            singlyLinkedList.Head = currentNode;
-                        }
-                        unSortedStart.Next = currentNode.Next;
-                        currentNode.Next = unSortedStart;
-                        return DoSorting(
-                            singlyLinkedList,
-                            areSorted,
-                            currentNode
-                        );
                     }
+                    previousNode = currentNode;
+                    currentNode = currentNode.Next;
                 }
-            } 
+                if (isAtHead == false)
+                {
+                    nodeToSwap.Next = unSortedStartParent.Next;
+                    unSortedStartParent.Next = nodeToSwap;
+                }
+                else
+                {
+                    singlyLinkedList.Head = nodeToSwap;
+                }
+                var nodeToSwapNext = nodeToSwap.Next;
+                nodeToSwap.Next = unSortedStart.Next;
+                nodeToSwapParent.Next = unSortedStart;
+                unSortedStart.Next = nodeToSwapNext;
+
+                return DoSorting(
+                    singlyLinkedList,
+                    areSorted,
+                    nodeToSwap,
+                    false
+                );
+            }
             return singlyLinkedList;
         }
     }

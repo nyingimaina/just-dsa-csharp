@@ -41,6 +41,26 @@ namespace JustDsaSharp.DataStructures.LinkedLists
             return this;
         }
 
+        public SinglyLinkedList<TValue> SwapNodes(
+            LinkedListNode<TValue> nodeOne, 
+            LinkedListNode<TValue> nodeTwo, 
+            LinkedListNode<TValue> nodeOneParent,
+            LinkedListNode<TValue> nodeTwoParent)
+        {
+            var nodeOneGrandChild = nodeOne.Next;
+            var nodeTwoGrandChild = nodeTwo.Next;
+
+            Action<LinkedListNode<TValue>, LinkedListNode<TValue>, LinkedListNode<TValue>?> attach = (parent, child, grandChild) =>
+            {
+                child.Next = grandChild;
+                parent.Next = child;
+            };
+
+            attach(nodeTwoParent, nodeOne, nodeTwoGrandChild);
+            attach(nodeOneParent, nodeTwo, nodeOneGrandChild);
+            return this;
+        }
+
 
     }
 }

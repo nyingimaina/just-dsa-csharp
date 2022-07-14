@@ -8,7 +8,9 @@ namespace JustDsaSharpTests.Sorting.SelectionSort
         [Fact]
         public void SortAscendingWorks()
         {
-            var unsortedList = new SinglyLinkedList<int>(12)
+            var unsortedList = new SinglyLinkedList<int>(11)
+                .Prepend(22)
+                .Prepend(12)
                 .Prepend(25)
                 .Prepend(64);
 
