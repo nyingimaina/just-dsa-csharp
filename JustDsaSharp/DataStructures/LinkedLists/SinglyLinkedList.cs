@@ -29,7 +29,8 @@ namespace JustDsaSharp.DataStructures.LinkedLists
         /// Time Complexity O(1), as reference to current head is known.
         /// </summary>
         /// <param name="value">The value to be contained in the head.</param>
-        public void Prepend (TValue value)
+        /// <returns>Handle to itself</returns>
+        public SinglyLinkedList<TValue> Prepend (TValue value)
         {
             var newHead = new LinkedListNode<TValue>
             {
@@ -37,6 +38,9 @@ namespace JustDsaSharp.DataStructures.LinkedLists
                 Value = value,
             };
             this.Head = newHead;
+            return this;
         }
+
+
     }
 }
