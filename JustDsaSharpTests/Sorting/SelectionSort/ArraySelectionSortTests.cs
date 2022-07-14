@@ -8,13 +8,12 @@ namespace JustDsaSharpTests.Sorting.SelectionSort
         [Fact]
         public void SortAscendingWorks()
         {
-            var unsortedArray = new int[] { 9, 1, 8, 4, 7, 2, 3 };
+            var unsortedArray = new int[] { 9, 1, 8, 4, 1, 7, 2, 3 };
             var sortedArray = new SelectionSorting().Sort<int[],int>(unsortedArray, (left, right) => left <= right);
 
-            Assert.Equal(unsortedArray.Length, sortedArray.Length);
-            for (int i = 0; i < unsortedArray.Length - 1; i++)
+            for (int i = 0; i < sortedArray.Length - 1; i++)
             {
-                Assert.True(unsortedArray[i] < unsortedArray[i + 1]);
+                Assert.True(sortedArray[i] <= sortedArray[i + 1]);
             }
         }
     }

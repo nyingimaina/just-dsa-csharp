@@ -24,8 +24,11 @@ namespace JustDsaSharp.Sorting.SelectionSort
                 var valueToCompare = (TValue)list[i]!;
                 if(areSorted( unsortedValue, valueToCompare) == false)
                 {
-                    swappingRequired = true;
-                    indexToSwapWith = i;
+                    if (areSorted(valueToCompare, (TValue)list[indexToSwapWith]!))
+                    {
+                        swappingRequired = true;
+                        indexToSwapWith = i;
+                    }
                 }
             }
 
