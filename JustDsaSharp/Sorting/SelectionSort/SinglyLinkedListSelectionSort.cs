@@ -12,9 +12,9 @@ namespace JustDsaSharp.Sorting.SelectionSort
         /// </summary>
         /// <param name="input">The possibly unsorted <see cref="SinglyLinkedList{TValue}"/></param>
         /// <param name="areSorted">Comparer function to be called with two values to allow testing if they meet the desired sorting criteria</param>
-        /// <typeparam name="TInput"></typeparam>
-        /// <typeparam name="TValue"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="TInput"><see cref="SinglyLinkedList{TValue}"/></typeparam>
+        /// <typeparam name="TValue">The type of data stored in the <see cref="SinglyLinkedList{TValue}"/></typeparam>
+        /// <returns>A sorted <see cref="SinglyLinkedList{TValue}"/></returns>
         public TInput Sort<TInput,TValue>(TInput input,Func<TValue,TValue,bool> areSorted)
         {
             var singlyLinkedList = input as SinglyLinkedList<TValue>;

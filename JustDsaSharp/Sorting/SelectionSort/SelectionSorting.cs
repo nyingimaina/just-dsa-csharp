@@ -1,5 +1,6 @@
 
 
+using System.Collections;
 using JustDsaSharp.DataStructures.LinkedLists;
 
 namespace JustDsaSharp.Sorting.SelectionSort
@@ -14,7 +15,7 @@ namespace JustDsaSharp.Sorting.SelectionSort
         /// <param name="areSorted">Comparer function to be called with two values to allow testing if they meet the desired sorting criteria</param>
         /// <typeparam name="TInput">Type of the input</typeparam>
         /// <typeparam name="TValue">If <paramref name="input"/> is generic, then the type of the of data it holds</typeparam>
-        /// <returns>The a sorted output from the input provided</returns>
+        /// <returns>The sorted output from the input provided</returns>
         public TInput Sort<TInput,TValue>(TInput input, Func<TValue,TValue,bool> areSorted)
         {
             if(input == null)
@@ -23,7 +24,8 @@ namespace JustDsaSharp.Sorting.SelectionSort
             }
             var sortWorkers = new Dictionary<string, Func<ISelectionSorting>>
             {
-                { GetTypeKey(typeof(SinglyLinkedList<>)), () => new SinglyLinkedListSelectionSort() }
+                { GetTypeKey(typeof(SinglyLinkedList<>)), () => new SinglyLinkedListSelectionSort() },
+                { GetTypeKey(typeof(object[])), () => new ListSelectionSorting() },
             };
 
             var typeOfInput = GetTypeKey(typeof(TInput));
@@ -41,6 +43,11 @@ namespace JustDsaSharp.Sorting.SelectionSort
         
         private string GetTypeKey(Type type)
         {
+            var implementsIList = typeof(IList).IsAssignableFrom(type);
+            if(implementsIList)
+            {
+                return typeof(IList).FullName!;
+            }
             if(type.FullName == null)
             {
                 throw new Exception($"Full name for type '{type.Name}' could not be determined");
