@@ -2,8 +2,19 @@ using JustDsaSharp.DataStructures.LinkedLists;
 
 namespace JustDsaSharp.Sorting.SelectionSort
 {
+    /// <summary>
+    /// Performs selection sort on <see cref="SinglyLinkedList{TValue}"/>
+    /// </summary>
     public class SinglyLinkedListSelectionSort : ISelectionSorting
     {
+        /// <summary>
+        /// Performs selection sort on <see cref="SinglyLinkedList{TValue}"/>
+        /// </summary>
+        /// <param name="input">The possibly unsorted <see cref="SinglyLinkedList{TValue}"/></param>
+        /// <param name="areSorted">Comparer function to be called with two values to allow testing if they meet the desired sorting criteria</param>
+        /// <typeparam name="TInput"></typeparam>
+        /// <typeparam name="TValue"></typeparam>
+        /// <returns></returns>
         public TInput Sort<TInput,TValue>(TInput input,Func<TValue,TValue,bool> areSorted)
         {
             var singlyLinkedList = input as SinglyLinkedList<TValue>;
@@ -54,24 +65,23 @@ namespace JustDsaSharp.Sorting.SelectionSort
                 }
                 if(!swappingRequired)
                 {
-                    return singlyLinkedList;
-                }
-                else
-                {
-                    if (isAtHead == false)
+                    if (unSortedStart.IsTail)
                     {
-                        singlyLinkedList.SwapNodes(nodeToSwap, unSortedStart, nodeToSwapParent, unSortedStartParent);
+                        return singlyLinkedList;
                     }
                     else
                     {
-                        singlyLinkedList.Head = nodeToSwap;
-                        var nodeToSwapNext = nodeToSwap.Next;
-                        nodeToSwap.Next = unSortedStart.Next;
-                        nodeToSwapParent.Next = unSortedStart;
-                        unSortedStart.Next = nodeToSwapNext;
+                        return DoSorting(
+                            singlyLinkedList,
+                            areSorted,
+                            unSortedStart,
+                            false
+                        );
                     }
-
-
+                }
+                else
+                {
+                    singlyLinkedList.SwapNodes(nodeToSwap, unSortedStart, nodeToSwapParent, unSortedStartParent);
                     return DoSorting(
                         singlyLinkedList,
                         areSorted,
@@ -79,6 +89,7 @@ namespace JustDsaSharp.Sorting.SelectionSort
                         false
                     );
                 }
+                
             }
             return singlyLinkedList;
         }

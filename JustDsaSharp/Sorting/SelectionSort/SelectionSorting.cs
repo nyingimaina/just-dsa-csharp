@@ -6,6 +6,15 @@ namespace JustDsaSharp.Sorting.SelectionSort
 {
     public class SelectionSorting
     {
+        /// <summary>
+        /// Entry point for selection sorting of data structures.
+        /// For supported data structures, this method will perform selection sort and return the result.
+        /// </summary>
+        /// <param name="input">The input to be sorted</param>
+        /// <param name="areSorted">Comparer function to be called with two values to allow testing if they meet the desired sorting criteria</param>
+        /// <typeparam name="TInput">Type of the input</typeparam>
+        /// <typeparam name="TValue">If <paramref name="input"/> is generic, then the type of the of data it holds</typeparam>
+        /// <returns>The a sorted output from the input provided</returns>
         public TInput Sort<TInput,TValue>(TInput input, Func<TValue,TValue,bool> areSorted)
         {
             if(input == null)
