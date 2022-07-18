@@ -24,6 +24,17 @@ namespace JustDsaSharp.DataStructures.LinkedLists
             };
         }
 
+
+        /// <summary>
+        /// Initialize an instance of the singly linked list, allowing you to pass in the head
+        /// Time Complexity O(1).
+        /// </summary>
+        /// <param name="head">The head of the list.</param>
+        public SinglyLinkedList(LinkedListNode<TValue> head)
+        {
+            Head = head;
+        }
+
         /// <summary>
         /// Adds a node to the head of the list, and then links to the previous head.
         /// Time Complexity O(1), as reference to current head is known.
@@ -72,6 +83,23 @@ namespace JustDsaSharp.DataStructures.LinkedLists
                 nodeTwoParent
             );
             return this;
+        }
+
+        /// <summary>
+        /// Returns the number of nodes in the linked list.
+        /// Time Complexity O(n) as requires traversing the whole list.
+        /// </summary>
+        /// <returns>Returns the number of nodes in the linked list.</returns>
+        public long Count()
+        {
+            long count = 0;
+            var currentNode = Head;
+            while(currentNode != null)
+            {
+                count++;
+                currentNode = currentNode.Next;
+            }
+            return count;
         }
 
         private void SwapNonAdjacentNodes(
