@@ -66,6 +66,15 @@ namespace JustDsaSharp.Searching.BinarySearch
             }
         }
 
+        /// <summary>
+        /// Takes in a sorted <see cref="SinglyLinkedList{TValue}"/> and performs a binary search on it,
+        /// and returns a <see cref="SearchResult{TValue}" /> object if the value is found, or null if
+        /// it is not.
+        /// </summary>
+        /// <param name="singlyLinkedList">The input <see cref="SinglyLinkedList{TValue}"/> to search from.</param>
+        /// <param name="comparer">This is a function that is called with a single value, to allow you to compare if it matches the target value you are searching for.</param>
+        /// <typeparam name="TValue">The type of the value held in the nodes of <see cref="SinglyLinkedList{TValue}"/>.</typeparam>
+        /// <returns>The node that matches the <paramref name="comparer"/> test if any is found or null if none is found.</returns>
         public SearchResult<TValue>? SearchForValue<TValue>(
             SinglyLinkedList<TValue> singlyLinkedList,
             Func<TValue?, ComparisonResult> comparer)
@@ -97,6 +106,15 @@ namespace JustDsaSharp.Searching.BinarySearch
             }
         }
 
+        /// <summary>
+        /// Takes in a sorted <see cref="SinglyLinkedList{TValue}"/> and performs a binary search on it,
+        /// and returns a <see cref="SearchResult{TResult}" /> object if the value is found, or null if
+        /// it is not.
+        /// </summary>
+        /// <param name="singlyLinkedList">The input <see cref="SinglyLinkedList{TValue}"/> to search from.</param>
+        /// <param name="comparer">This is a function that is called with a single value, to allow you to compare if it matches the target value you are searching for.</param>
+        /// <typeparam name="TValue">The type of the value held in the nodes of <see cref="SinglyLinkedList{TValue}"/>.</typeparam>
+        /// <returns>The node that matches the <paramref name="comparer"/> test if any is found or null if none is found.</returns>
         public SearchResult<DataStructures.LinkedLists.LinkedListNode<TValue>>? SearchForNode<TValue>(
             SinglyLinkedList<TValue> singlyLinkedList,
             Func<TValue?, ComparisonResult> comparer)
