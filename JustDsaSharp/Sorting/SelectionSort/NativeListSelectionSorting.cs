@@ -2,7 +2,7 @@ using System.Collections;
 
 namespace JustDsaSharp.Sorting.SelectionSort
 {
-    public class ListSelectionSorting : ISelectionSorting
+    public class NativeListSelectionSorting : ISelectionSorting
     {
         public TInput Sort<TInput, TValue>(TInput input!!, Func<TValue, TValue, bool> areSorted)
         {

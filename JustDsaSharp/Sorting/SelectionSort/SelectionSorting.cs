@@ -25,7 +25,7 @@ namespace JustDsaSharp.Sorting.SelectionSort
             var sortWorkers = new Dictionary<string, Func<ISelectionSorting>>
             {
                 { GetTypeKey(typeof(SinglyLinkedList<>)), () => new SinglyLinkedListSelectionSort() },
-                { GetTypeKey(typeof(object[])), () => new ListSelectionSorting() },
+                { GetTypeKey(typeof(object[])), () => new NativeListSelectionSorting() },
             };
 
             var typeOfInput = GetTypeKey(typeof(TInput));
